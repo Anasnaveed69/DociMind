@@ -85,7 +85,20 @@ graph TD
 
 ---
 
-## 🖼️ Screenshots & Visual Tour
+## 🖼️ Live Application Screenshots & Visual Tour
+
+### 🖥️ Streamlit Interactive Web Application
+![Streamlit Main Dashboard](Output_Images/streamlit_landing_page.png)
+
+### 📄 Real-Time Document Classification & OCR Line Extraction (Resume)
+![Streamlit Resume Processing](Output_Images/streamlit_resume_analysis.png)
+
+### 📇 National ID Card OCR Text & Bounding Extraction Output
+![Streamlit ID Card Processing](Output_Images/streamlit_id_card_analysis.png)
+
+---
+
+### 📊 Model Analytics & Preprocessing Visualizations
 
 | 1. Dataset Overview | 2. EDA Class Distribution |
 | :---: | :---: |
@@ -102,10 +115,6 @@ graph TD
 | 7. Multi-Class ROC-AUC Curves | 8. Single Document Inference Output |
 | :---: | :---: |
 | ![ROC Curve](Output_Images/07_roc_curve.png) | ![Prediction Output](Output_Images/08_prediction_output.png) |
-
-| 9. Streamlit Interactive Dashboard | 10. Structured Export Output (JSON/CSV) |
-| :---: | :---: |
-| ![Streamlit Dashboard](Output_Images/09_streamlit_dashboard.png) | ![Export Result](Output_Images/10_export_result.png) |
 
 ---
 
