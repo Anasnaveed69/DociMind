@@ -118,21 +118,30 @@ graph TD
 
 ---
 
+## 📹 Project Demo & Video Walkthrough
+
+Watch the full interactive application demonstration and pipeline walkthrough:
+- 🎬 **Video Demo**: [Watch DociMind Interactive Demo](https://github.com/Anasnaveed69/DociMind#readme) *(Uploaded with project report deliverables)*
+- 📄 **Project Report**: [`DociMind_Project_Report.pdf`](DociMind_Project_Report.pdf)
+
+---
+
 ## 📊 Dataset & Pipeline Training
 
 The DociMind training pipeline was developed using a curated dataset of multi-class document images sourced from Kaggle. 
 
-- **Data Acquisition**: Downloaded via `kagglehub` API into structured class directories.
+- 🔗 **Dataset Link**: [Kaggle Real-World Documents Collection](https://www.kaggle.com/datasets/shaz13/real-world-documents-collections)
+- **Data Acquisition**: Downloaded programmatically via `kagglehub.dataset_download("shaz13/real-world-documents-collections")` into structured class directories.
 - **OCR Text Generation**: Extracted text content from hundreds of training document samples using EasyOCR.
 - **Feature Engineering**: Built TF-IDF n-gram vector representations (unigrams & bigrams) from extracted document text.
+- **Hyperparameter Optimization**: Conducted 5-fold Stratified Cross-Validation `GridSearchCV` for hyperparameter tuning.
 - **Model Selection & Evaluation**: Evaluated multiple classification algorithms:
-  - **Logistic Regression**
+  - **Logistic Regression** *(Tuned baseline model)*
   - **Random Forest Classifier**
-  - **Support Vector Machine (SVM)**
-  - **LightGBM Classifier** *(Selected for final production deployment)*
+  - **XGBoost & LightGBM Classifiers**
 - **Artifact Export**: Serialized the optimal trained model, vectorizer, and label encoder into lightweight `.joblib` artifacts.
 
-> 📓 **Notebook**: Explore the complete training pipeline in [`notebooks/01_docimind_training_pipeline.ipynb`](notebooks/01_docimind_training_pipeline.ipynb).
+> 📓 **Google Colab Notebook**: Explore the complete training pipeline in [`notebooks/01_docimind_training_pipeline.ipynb`](notebooks/01_docimind_training_pipeline.ipynb).
 
 ---
 
