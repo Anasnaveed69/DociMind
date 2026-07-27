@@ -9,14 +9,16 @@
 [![EasyOCR](https://img.shields.io/badge/EasyOCR-FF6F00?style=for-the-badge&logo=pytorch&logoColor=white)](https://github.com/JaidedAI/EasyOCR)
 [![Scikit-Learn](https://img.shields.io/badge/Scikit--Learn-F7931E?style=for-the-badge&logo=scikit-learn&logoColor=white)](https://scikit-learn.org)
 [![spaCy](https://img.shields.io/badge/spaCy-09A3D5?style=for-the-badge&logo=spacy&logoColor=white)](https://spacy.io)
-[![Streamlit](https://img.shields.io/badge/Streamlit-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white)](https://streamlit.io)
+[![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://docimind.streamlit.app/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](https://opensource.org/licenses/MIT)
 
 ---
 
+### 🌐 **Live Web Application**: [https://docimind.streamlit.app](https://docimind.streamlit.app/)
+
 **DociMind** is an enterprise-grade, end-to-end intelligent document processing (IDP) platform designed to automate document classification and structured information extraction from complex, unstructured scanned documents and images.
 
-[Key Features](#-features) • [Architecture](#-architecture) • [Screenshots](#-screenshots--visual-tour) • [Installation](#-installation) • [Usage](#-usage) • [Tech Stack](#-tech-stack)
+[🌐 Live App](https://docimind.streamlit.app/) • [Key Features](#-features) • [Architecture](#-architecture) • [Screenshots](#-screenshots--visual-tour) • [Installation](#-installation) • [Usage](#-usage) • [Tech Stack](#-tech-stack)
 
 </div>
 
@@ -121,6 +123,7 @@ graph TD
 ## 📹 Project Demo & Video Walkthrough
 
 Watch the full interactive application demonstration and pipeline walkthrough:
+- 🌐 **Live Web Application**: [https://docimind.streamlit.app](https://docimind.streamlit.app/)
 - 🎬 **Video Demo**: [Watch DociMind Interactive Demo](https://github.com/Anasnaveed69/DociMind#readme) *(Uploaded with project report deliverables)*
 - 📄 **Project Report**: [`DociMind_Project_Report.pdf`](DociMind_Project_Report.pdf)
 
