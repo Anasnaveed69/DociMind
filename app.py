@@ -116,6 +116,7 @@ def main():
         st.markdown("---")
         st.caption("Author: **Anas Naveed Butt**")
         st.caption("Live App: [docimind.streamlit.app](https://docimind.streamlit.app/)")
+        st.caption("Project Deliverables: [Google Drive Zip](https://drive.google.com/drive/folders/1rDw9sQYvrQKqLGqtV5Se5RRu5LgWFRKK?usp=drive_link)")
         st.caption("Assigned Topic: **OCR Information Extraction**")
         st.caption("Offer ID: **CAX-OL-2026-283**")
 

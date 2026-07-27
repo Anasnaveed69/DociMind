@@ -124,6 +124,7 @@ graph TD
 
 Watch the full interactive application demonstration and pipeline walkthrough:
 - 🌐 **Live Web Application**: [https://docimind.streamlit.app](https://docimind.streamlit.app/)
+- 📁 **Full Project Source Deliverables (Google Drive)**: [Access Full Project & Report Zip](https://drive.google.com/drive/folders/1rDw9sQYvrQKqLGqtV5Se5RRu5LgWFRKK?usp=drive_link)
 - 🎬 **Video Demo**: [Watch DociMind Interactive Demo](https://github.com/Anasnaveed69/DociMind#readme) *(Uploaded with project report deliverables)*
 - 📄 **Project Report**: [`DociMind_Project_Report.pdf`](DociMind_Project_Report.pdf)
 
