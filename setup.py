@@ -3,7 +3,8 @@ from setuptools import setup, find_packages
 setup(
     name="docimind",
     version="1.0.0",
-    author="DociMind Engineering Team",
+    author="Anas Naveed Butt",
+    author_email="buttanas813@gmail.com",
     description="DociMind — Intelligent Document Classification & Information Extraction Platform",
     package_dir={"": "src"},
     packages=find_packages(where="src"),

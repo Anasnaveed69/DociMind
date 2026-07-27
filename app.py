@@ -114,6 +114,7 @@ def main():
             st.markdown(f"• `{doc}`")
 
         st.markdown("---")
+        st.caption("Author: **Anas Naveed Butt**")
         st.caption("Assigned Topic: **OCR Information Extraction**")
         st.caption("Offer ID: **CAX-OL-2026-283**")
 

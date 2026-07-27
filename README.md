@@ -290,5 +290,5 @@ Developed as a Principal AI/ML Portfolio Project under the AI/ML Engineering Pro
 ---
 
 <div align="center">
-  <sub>Built with ❤️ by <a href="https://github.com/Anasnaveed69">Anas Naveed</a></sub>
+  <sub>Built with ❤️ by <a href="https://github.com/Anasnaveed69">Anas Naveed Butt</a></sub>
 </div>
