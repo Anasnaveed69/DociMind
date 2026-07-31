@@ -5,15 +5,15 @@ from PIL import Image
 import json
 import sys
 import os
+import pandas as pd
 
 # Add src to python path for module loading
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "src")))
 
-
-
 from docimind.pipeline import DociMindPipeline
 from docimind.config import SUPPORTED_DOCUMENTS
-from docimind.utils.export_utils import export_to_json, export_to_csv
+from docimind.utils.export_utils import export_to_json, export_to_csv, export_to_pdf
+from docimind.utils.db_utils import save_prediction, get_prediction_history, clear_prediction_history, init_db
 
 
 # Page Configuration
@@ -23,6 +23,9 @@ st.set_page_config(
     layout="wide",
     initial_sidebar_state="expanded"
 )
+
+# Initialize Database
+init_db()
 
 # Inject Custom Modern Glassmorphic UI CSS
 st.markdown("""
@@ -148,7 +151,6 @@ def main():
 
             pipeline = get_pipeline()
 
-
             # Execute Extraction Pipeline with Loading Spinner
             with st.spinner("⚡ Running DociMind Pipeline (OpenCV -> EasyOCR -> Classifier -> Field Extractor)..."):
                 results = pipeline.process(
@@ -164,6 +166,9 @@ def main():
             ocr_conf = ocr_summary["avg_confidence"]
             latency = results["processing_time_ms"]
 
+            # Save prediction to SQLite database
+            save_prediction(uploaded_file.name, results)
+
             # Key Metric Summary Display Cards
             m1, m2, m3, m4 = st.columns(4)
             with m1:
@@ -172,19 +177,22 @@ def main():
                 st.metric("Classifier Confidence", f"{int(confidence * 100)}%")
             with m3:
                 st.metric("OCR Avg Confidence", f"{int(ocr_conf * 100)}%")
+            with m4:
+                st.metric("Latency", f"{int(latency)} ms")
+
             if ocr_conf == 0.0 or not ocr_summary["full_text"].strip():
                 st.warning("⚠️ **No readable text detected by OCR.** If you uploaded a PDF or image, ensure it is clear, properly oriented, and contains selectable/rasterized text. Try disabling *Auto Deskew & Orientation* in the sidebar if the document is already upright.")
 
             st.markdown("---")
 
-
             # Main Application Multi-Tab Interface
-            tab1, tab2, tab3, tab4, tab5 = st.tabs([
+            tab1, tab2, tab3, tab4, tab5, tab6 = st.tabs([
                 "📷 OCR Preview & Visual Overlay",
                 "📊 Document Prediction Metrics",
                 "🔑 Extracted Key Fields",
                 "📝 Raw OCR Text Output",
-                "💾 Export Results"
+                "💾 Export Results",
+                "📜 Prediction History (SQLite)"
             ])
 
             with tab1:
@@ -230,8 +238,9 @@ def main():
                 st.subheader("Download Extraction Results")
                 json_str = export_to_json(results)
                 csv_str = export_to_csv(results)
+                pdf_bytes = export_to_pdf(results)
 
-                exp1, exp2 = st.columns(2)
+                exp1, exp2, exp3 = st.columns(3)
                 with exp1:
                     st.download_button(
                         label="📥 Download JSON Payload",
@@ -248,6 +257,31 @@ def main():
                         mime="text/csv",
                         use_container_width=True
                     )
+                with exp3:
+                    st.download_button(
+                        label="📄 Download PDF Report",
+                        data=pdf_bytes,
+                        file_name=f"{predicted_class.lower().replace(' ', '_')}_report.pdf",
+                        mime="application/pdf",
+                        use_container_width=True
+                    )
+
+            with tab6:
+                st.subheader("📜 Stored Prediction Records (SQLite Database)")
+                history = get_prediction_history()
+                if history:
+                    hist_df = pd.DataFrame(history)[["id", "timestamp", "filename", "predicted_class", "confidence", "ocr_confidence", "processing_time_ms"]]
+                    hist_df["confidence"] = hist_df["confidence"].apply(lambda c: f"{int(c * 100)}%")
+                    hist_df["ocr_confidence"] = hist_df["ocr_confidence"].apply(lambda c: f"{int(c * 100)}%")
+                    hist_df["processing_time_ms"] = hist_df["processing_time_ms"].apply(lambda ms: f"{int(ms)} ms")
+                    hist_df.columns = ["ID", "Timestamp", "Filename", "Predicted Class", "Model Conf", "OCR Conf", "Latency"]
+                    st.dataframe(hist_df, use_container_width=True)
+
+                    if st.button("🗑️ Clear Database History"):
+                        clear_prediction_history()
+                        st.rerun()
+                else:
+                    st.info("No prediction history recorded in SQLite database yet.")
 
         except Exception as e:
             st.error(f"❌ An error occurred while processing document: {str(e)}")
@@ -267,6 +301,23 @@ def main():
                         <p style="font-size: 0.85rem; color: #94a3b8; margin-top: 4px;">Automated OCR & NLP Field Extraction</p>
                     </div>
                 """, unsafe_allow_html=True)
+
+        st.markdown("---")
+        st.subheader("📜 Prediction History (SQLite Database)")
+        history = get_prediction_history()
+        if history:
+            hist_df = pd.DataFrame(history)[["id", "timestamp", "filename", "predicted_class", "confidence", "ocr_confidence", "processing_time_ms"]]
+            hist_df["confidence"] = hist_df["confidence"].apply(lambda c: f"{int(c * 100)}%")
+            hist_df["ocr_confidence"] = hist_df["ocr_confidence"].apply(lambda c: f"{int(c * 100)}%")
+            hist_df["processing_time_ms"] = hist_df["processing_time_ms"].apply(lambda ms: f"{int(ms)} ms")
+            hist_df.columns = ["ID", "Timestamp", "Filename", "Predicted Class", "Model Conf", "OCR Conf", "Latency"]
+            st.dataframe(hist_df, use_container_width=True)
+
+            if st.button("🗑️ Clear Database History"):
+                clear_prediction_history()
+                st.rerun()
+        else:
+            st.info("No prediction history stored in SQLite database yet. Upload a document to start logging predictions.")
 
 
 if __name__ == "__main__":
